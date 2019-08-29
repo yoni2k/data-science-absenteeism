@@ -4,7 +4,7 @@ Especially to understand how Reasons effect the model exactly
 ### Values before removing standardizing dummies:
 - Score: 0.78
 - Intercept and coefficients sorted:
----
+
                        Features      Coefs   Odds_ratio 
     14                     Pets -0.333388    0.716492
     0                 Intercept -0.219576    0.802859
@@ -51,3 +51,31 @@ Especially to understand how Reasons effect the model exactly
     - Day of the Week (although it would be interesting to put it as categorical data)
     - Distance to Work
     - Daily Work Load Average
+    
+## Step 2: Remove low coefficient features
+- Remove:
+    - Day of the Week
+    - Distance to Work
+    - Daily Work Load Average
+- Score: 0.78 (up from previous 0.77 - so removing was helpful)
+- Intercept and coefficients sorted:
+
+                          Features     Coefs  Odds_ratio
+        0                Intercept -1.465471    0.230969
+        11                    Pets -0.277514    0.757665
+        9                Education -0.234525    0.790946
+        7                      Age -0.172451    0.841599
+        5              Month Value  0.154937    1.167585
+        8          Body Mass Index  0.275685    1.317433
+        10                Children  0.342497    1.408460
+        6   Transportation Expense  0.599798    1.821751
+        4                 Reason_4  0.663907    1.942367
+        2                 Reason_2  0.863386    2.371177
+        1                 Reason_1  2.627499   13.839121
+        3                 Reason_3  2.960507   19.307751
+### Conclusions:
+- All features are now significant, although the most significant are:
+    - Reasons
+    - Transportation expense
+    - Children
+    - BMI

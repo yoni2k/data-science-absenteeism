@@ -24,14 +24,17 @@ INPUT_FILE = "outputs/Absenteeism_preprocessed_mine.csv"
 TEST_FRACTION = 0.2
 
 
-def prepare_data(scale_dummies=False):
+def prepare_data(scale_dummies=False, features_to_remove=None):
     pd.options.display.max_columns = None
     pd.options.display.max_rows = None
     np.set_printoptions(formatter={'float': lambda x: "{0:0.2f}".format(x)}, linewidth=120)
 
     df = pd.read_csv(INPUT_FILE)
-    print(f"Read data, shape: {df.shape}, head:")
-    print(df.head().to_string())
+    print(f"Read data, shape: {df.shape}, head:\n{df.head().to_string()}")
+
+    if features_to_remove:
+        df = df.drop(features_to_remove, axis=1)
+        print(f"After dropping features data, shape: {df.shape}, head:\n{df.head().to_string()}")
 
     # Taking the mean / median as a cutoff point, which will also make our targets balanced
     mean_of_absense_hours = df['Absenteeism Time in Hours'].median()
@@ -96,26 +99,10 @@ def single_model(inputs, targets, features):
     print(f'Intercept and coefficients:\n{df.to_string()}')
     print(f'Intercept and coefficients sorted:\n{df.sort_values("Odds_ratio", axis=0).to_string()}')
 
-    print("""Conclusions - miss work more if:
-- Less pets
-- Younger
-(- Less education)
-(- Higher month)
-- Higher BMI
-- More children
-- More transportation expenses
-- A specific reason was given (vs. reference of giving no reason) - reasons for missing (from lowest to highest: 2, 4, 3, 1)
 
-Have barely any affect:
-- Day of the Week
-- Distance to Work
-- Daily Work Load Average""")
-
-
-
-
-
-inputs, targets, features = prepare_data(scale_dummies=False)
+inputs, targets, features = prepare_data(scale_dummies=False,
+                                         features_to_remove=
+                                         ['Day of the Week', 'Distance to Work', 'Daily Work Load Average'])
 single_model(inputs, targets, features)
 
 

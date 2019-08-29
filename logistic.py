@@ -21,7 +21,7 @@ TODO:
 """
 
 
-INPUT_FILE = "outputs/Absenteeism_preprocessed_mine.csv"
+INPUT_FILE = "files/Absenteeism_preprocessed_mine.csv"
 TEST_FRACTION = 0.2
 
 

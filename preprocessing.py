@@ -6,8 +6,8 @@ See input file "inputs/Absenteeism-data.csv" for different inputs and factors.
 Also, see PREPROCESSING.md for analysis of inputs and decisions for preprocessing
 """
 
-INPUT_FILE = "inputs/Absenteeism-data.csv"
-OUTPUT_FILE = "outputs/Absenteeism_preprocessed_mine.csv"  # if changing, change also INPUT_FILE in logistic.py
+INPUT_FILE = "files/Absenteeism-data.csv"
+OUTPUT_FILE = "files/Absenteeism_preprocessed_mine.csv"  # if changing, change also INPUT_FILE in logistic.py
 
 def preprocess():
     pd.options.display.max_columns = None

@@ -83,7 +83,7 @@ def preprocess():
     #   since 4th category is the only one that's really small
     #   Then according to the course, need to add dummy values - turn from categorical
     print(f'frequency of educations:\n{df["Education"].value_counts()}')
-    df_preprocessed['Education'] = df['Education'].map({1: 0, 2: 1, 3: 1, 4: 1})
+    df_preprocessed['Education'] = df['Education'].map({1: 0, 2: 1, 3: 2, 4: 2})
     print(f'frequency of educations after turning into 0 and 1:\n{df_preprocessed["Education"].value_counts()}')
     print(f'================ After turning education into dummies, shape: {df_preprocessed.shape}, Head: ')
     print(df_preprocessed.head().to_string())

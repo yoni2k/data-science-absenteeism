@@ -79,3 +79,14 @@ Especially to understand how Reasons effect the model exactly
     - Transportation expense
     - Children
     - BMI
+    
+## Improve model inputs - Step 3: Change education to be 3 instead of 2 categories
+- What was done: Since following are the frequencies:
+
+        1    583
+        2     40
+        3     73
+        4      4  
+    and there aren't enough 4s, combine 3 and 4, and map everything to 0, 1, 2 instead of 1, 2, 3
+- Conclusion: Doesn't seem to make a difference both on accuracies and weights (besides the Education weight, but that's because now Education is standardized)
+    Committing, but will be reverted to stay with what was done in the course

@@ -9,6 +9,7 @@ from sklearn import metrics
 TODO:
 - requirements.txt
 - Put conclusions printed into Readme
+- Move file of OUTPUT to inputs or general files
 - Try to improve inputs:
     - TODOs in preprocessing
     - Think how to take the person's uniqueness into account
@@ -45,7 +46,7 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     # scale the data, prepare inputs
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
-        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4', 'Education'], axis=1)
+        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 
@@ -80,7 +81,7 @@ def single_model(inputs, targets, features):
     reg.fit(x_train, y_train)
 
     score = reg.score(x_train, y_train)
-    print(f'score of training: {round(score, 2)}')
+    print(f'score of training: {round(score, 3)}')
 
     # manually calculate score
     y_pred = reg.predict(x_train)
@@ -101,7 +102,7 @@ def single_model(inputs, targets, features):
 
     # test
     test_score = reg.score(x_test, y_test)
-    print(f'score of testing: {round(test_score, 2)}')
+    print(f'score of testing: {round(test_score, 3)}')
 
 
 inputs, targets, features = prepare_data(scale_dummies=False,

@@ -46,7 +46,7 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     # scale the data, prepare inputs
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
-        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4'], axis=1)
+        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4', 'Education'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 

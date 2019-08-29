@@ -99,6 +99,10 @@ def single_model(inputs, targets, features):
     print(f'Intercept and coefficients:\n{df.to_string()}')
     print(f'Intercept and coefficients sorted:\n{df.sort_values("Odds_ratio", axis=0).to_string()}')
 
+    # test
+    test_score = reg.score(x_test, y_test)
+    print(f'score of testing: {round(test_score, 2)}')
+
 
 inputs, targets, features = prepare_data(scale_dummies=False,
                                          features_to_remove=

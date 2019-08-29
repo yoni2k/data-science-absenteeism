@@ -23,7 +23,8 @@ TODO:
 INPUT_FILE = "outputs/Absenteeism_preprocessed_mine.csv"
 TEST_FRACTION = 0.2
 
-def prepare_data():
+
+def prepare_data(scale_dummies=False):
     pd.options.display.max_columns = None
     pd.options.display.max_rows = None
     np.set_printoptions(formatter={'float': lambda x: "{0:0.2f}".format(x)}, linewidth=120)
@@ -39,10 +40,17 @@ def prepare_data():
     print("After adding Excessive Absenteeism, absent above average:\n" + df.head().to_string())
 
     # scale the data, prepare inputs
-    unscaled_inputs = df.iloc[:, :-1]
+    df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
+    if not scale_dummies:
+        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4', 'Education'], axis=1)
+
+    columns_to_scale = df_inputs_for_scaling.columns.values
+
     scaler = StandardScaler()
-    scaler.fit(unscaled_inputs)  # just calculates and saves Means and STDs
-    scaled_inputs = scaler.transform(unscaled_inputs)
+    scaler.fit(df_inputs_for_scaling)  # just calculates and saves Means and STDs
+    df[columns_to_scale] = scaler.transform(df_inputs_for_scaling)
+    print(f"Data after scaling, shape: {df.shape}, head:\n{df.head().to_string()}")
+    scaled_inputs = df.iloc[:, :-1].to_numpy()
     print(f'inputs shape: {scaled_inputs.shape}, first 5 lines:\n{scaled_inputs[:5, :]}')
 
     # prepare targets
@@ -60,11 +68,6 @@ def shuffle_split_train_test(inputs, targets):
     print(f"shapes of split data - input_train: {x_train.shape}, inputs_test: {x_test.shape}, "
           f"targets_train: {y_train.shape}, targets_test: {y_test.shape}")
     return x_train, x_test, y_train, y_test
-
-
-def prepare_model():
-    reg = LogisticRegression()
-
 
 
 def single_model(inputs, targets, features):
@@ -112,7 +115,7 @@ Have barely any affect:
 
 
 
-inputs, targets, features = prepare_data()
+inputs, targets, features = prepare_data(scale_dummies=False)
 single_model(inputs, targets, features)
 
 

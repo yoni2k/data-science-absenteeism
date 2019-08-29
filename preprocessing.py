@@ -7,7 +7,7 @@ Also, see PREPROCESSING.md for analysis of inputs and decisions for preprocessin
 """
 
 INPUT_FILE = "inputs/Absenteeism-data.csv"
-OUTPUT_FILE = "outputs/Absenteeism_preprocessed_mine.csv"
+OUTPUT_FILE = "outputs/Absenteeism_preprocessed_mine.csv"  # if changing, change also INPUT_FILE in logistic.py
 
 def preprocess():
     pd.options.display.max_columns = None

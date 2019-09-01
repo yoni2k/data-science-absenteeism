@@ -332,3 +332,34 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 ### Conclusions:
 - Leave for now Fridays and Sundays, decide later if worth to deviate from course
 
+## Step 16: Split into specific months
+- score of training: 0.689, score of testing: 0.657 - similar
+- Intercept and coefficients sorted:
+
+        1                   Month_1 -1.017627    0.361452
+        2                   Month_2 -0.799833    0.449404
+        5                   Month_5 -0.568547    0.566348
+        8                   Month_9 -0.491489    0.611715
+        9                  Month_10 -0.471914    0.623807
+        0                 Intercept -0.415403    0.660074
+        3                   Month_3 -0.244776    0.782880
+        10                 Month_11 -0.220430    0.802174
+        22                     Pets -0.177009    0.837772
+        13                  Day_Fri -0.158069    0.853791
+        11                 Month_12 -0.071723    0.930788
+        21                 Children  0.056414    1.058036
+        17                Age_47_58  0.059714    1.061533
+        19          Body Mass Index  0.096715    1.101547
+        4                   Month_4  0.114295    1.121082
+        16                Age_40_46  0.232944    1.262310
+        18  Daily Work Load Average  0.243870    1.276179
+        20                Education  0.249014    1.282760
+        12                  Day_Mon  0.254595    1.289939
+        7                   Month_8  0.466115    1.593790
+        14   Transportation Expense  0.621735    1.862156
+        6                   Month_7  0.909284    2.482546
+        15                Age_34_39  1.079998    2.944672        
+### Conclusions:
+- Clearly see that in some months there is a lot more absenteeism, like 7,8, and in some less.
+- However, month 12 seems not to add a lot of info compared to month 6 reference category, to remove
+

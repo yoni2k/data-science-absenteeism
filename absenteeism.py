@@ -57,7 +57,10 @@ def preprocess():
     print(f"Date - min: {min(df['Date'])}, max: {max(df['Date'])}, unique: {df['Date'].unique().shape}, "
           f"null: {df['Date'].isnull().sum()}")
 
-    df_preprocessed = pd.DataFrame({'Month Value': pd.DatetimeIndex(df['Date']).month})
+    months = pd.get_dummies(pd.DatetimeIndex(df['Date']).month, prefix="Month")
+    print(f'Frequences of months:\n{pd.DatetimeIndex(df["Date"]).month.value_counts()}')
+    months = months.drop(['Month_6'], axis=1)
+    df_preprocessed = months
 
     print(f'================ After adding month, shape: {df_preprocessed.shape}, Head: ')
     print(df_preprocessed.head().to_string())
@@ -155,7 +158,9 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
         df_inputs_for_scaling = df_inputs_for_scaling.drop(
-            ['Education', 'Age_34_39', 'Age_40_46', 'Age_47_58', 'Day_Mon', 'Day_Fri'], axis=1)
+            ['Education', 'Age_34_39', 'Age_40_46', 'Age_47_58', 'Day_Mon', 'Day_Fri',
+             'Month_1', 'Month_2', 'Month_3', 'Month_4', 'Month_5', 'Month_7',
+             'Month_8', 'Month_9', 'Month_10', 'Month_11', 'Month_12'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 

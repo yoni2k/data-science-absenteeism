@@ -310,26 +310,25 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 - There is less of a chance to be absent on Friday, and more on Sunday
 - Drop Tuesday and Wednesday
 
-## Step 14: Split day of week into categories
-- score of training: 0.666, score of testing: 0.657 (same or better)
+## Step 15: Leave only Friday and Monday as days
+- Because Tuesday-Thursday, there is no special behavior - remove it.  Leave only Friday and Monday, where it's clearly seen that Friday there is less of a chance, and Monday more of a chance
+- score of training: 0.662, score of testing: 0.664 - same or better
 - Intercept and coefficients sorted:
-
+        
                            Features     Coefs  Odds_ratio
-        0                 Intercept -0.694880    0.499134
-        14                     Pets -0.166691    0.846461
-        5                   Day_Fri -0.125483    0.882071
-        4                   Day_Wed -0.034806    0.965792
-        3                   Day_Tue -0.033948    0.966622
-        13                 Children  0.021066    1.021289
-        11          Body Mass Index  0.057955    1.059667
-        10  Daily Work Load Average  0.122796    1.130653
-        1               Month Value  0.154693    1.167300
-        12                Education  0.206839    1.229784
-        9                 Age_47_58  0.216159    1.241300
-        8                 Age_40_46  0.265714    1.304362
-        2                   Day_Mon  0.285967    1.331049
-        6    Transportation Expense  0.665392    1.945253
-        7                 Age_34_39  1.189535    3.285552
+        0                 Intercept -0.719551    0.486971
+        12                     Pets -0.166393    0.846714
+        3                   Day_Fri -0.103032    0.902098
+        11                 Children  0.021654    1.021890
+        9           Body Mass Index  0.057774    1.059476
+        8   Daily Work Load Average  0.122444    1.130256
+        1               Month Value  0.154902    1.167544
+        10                Education  0.208551    1.231892
+        7                 Age_47_58  0.216748    1.242031
+        6                 Age_40_46  0.268306    1.307747
+        2                   Day_Mon  0.308954    1.361999
+        4    Transportation Expense  0.665532    1.945524
+        5                 Age_34_39  1.188558    3.282345
 ### Conclusions:
-- There is less of a chance to be absent on Friday, and more on Sunday
-- Drop Tuesday and Wednesday
+- Leave for now Fridays and Sundays, decide later if worth to deviate from course
+

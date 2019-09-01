@@ -119,7 +119,7 @@ Especially to understand how Reasons effect the model exactly
     - Day of the Week
     - Distance to Work
     - Daily Work Load Average
-- Score: 0.78 (up from previous 0.77 - so removing was helpful)
+- Score: 0.78 - .775 (up from previous 0.77 - so removing was helpful), test score: 0.75
 - Intercept and coefficients sorted:
 
                           Features     Coefs  Odds_ratio

@@ -120,11 +120,10 @@ def preprocess():
     print(f'================ After turning education into dummies, shape: {df_preprocessed.shape}, Head: ')
     print(df_preprocessed.head().to_string())
 
-    # Adding as is 'Children', 'Pets', 'Absenteeism Time in Hours'
-    df_preprocessed['Children'] = df['Children']
+    # Adding as is 'Pets', 'Absenteeism Time in Hours'
     df_preprocessed['Pets'] = df['Pets']
     df_preprocessed['Absenteeism Time in Hours'] = df['Absenteeism Time in Hours']
-    print(f"================ After adding 'Children', 'Pets', 'Absenteeism Time in Hours' - final version, "
+    print(f"================ After adding 'Pets', 'Absenteeism Time in Hours' - final version, "
           f"shape: {df_preprocessed.shape}, Head: ")
     print(df_preprocessed.head().to_string())
 

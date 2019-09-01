@@ -393,3 +393,34 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 ### Conclusions:
 - Especially clear that in July - August there is a lot of absenteeism
 - Consider removing Children since very low weight - strange, but perhaps the age explains better than number of children whether someone will be missing (maybe need a category of number of small children)?
+
+## Step 18: Remove number of children
+- Remove children since very low weight - strange, but perhaps the age explains better than number of children whether someone will be missing (maybe need a category of number of small children)?
+- score of training: 0.689, score of testing: 0.65 - similar
+- Intercept and coefficients sorted:
+
+                           Features     Coefs  Odds_ratio
+        1                   Month_1 -1.004155    0.366354
+        2                   Month_2 -0.784740    0.456238
+        5                   Month_5 -0.538904    0.583387
+        0                 Intercept -0.470517    0.624679
+        8                   Month_9 -0.467160    0.626780
+        9                  Month_10 -0.442828    0.642218
+        3                   Month_3 -0.207727    0.812429
+        10                 Month_11 -0.193699    0.823906
+        20                     Pets -0.181566    0.833963
+        12                  Day_Fri -0.144845    0.865156
+        18          Body Mass Index  0.078925    1.082123
+        16                Age_47_58  0.122772    1.130626
+        4                   Month_4  0.137024    1.146856
+        19                Education  0.228439    1.256637
+        15                Age_40_46  0.240078    1.271348
+        17  Daily Work Load Average  0.245621    1.278415
+        11                  Day_Mon  0.258970    1.295595
+        7                   Month_8  0.487519    1.628271
+        13   Transportation Expense  0.646782    1.909386
+        6                   Month_7  0.922204    2.514826
+        14                Age_34_39  1.146026    3.145666   
+### Conclusions:
+- Seems that removing children doesn't do harm.  However, I think there are too many months that add a lot of noise.  It seems that 7-8 months are the unusual ones.
+- Return children for now, and just put if it's July-August

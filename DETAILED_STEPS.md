@@ -363,3 +363,33 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 - Clearly see that in some months there is a lot more absenteeism, like 7,8, and in some less.
 - However, month 12 seems not to add a lot of info compared to month 6 reference category, to remove
 
+## Step 17: Remove also month 12
+- score of training: 0.684, score of testing: 0.657 - similar
+- Intercept and coefficients sorted:
+
+                           Features     Coefs  Odds_ratio
+        1                   Month_1 -0.997929    0.368642
+        2                   Month_2 -0.777001    0.459783
+        5                   Month_5 -0.546803    0.578797
+        8                   Month_9 -0.469519    0.625303
+        9                  Month_10 -0.448517    0.638574
+        0                 Intercept -0.441546    0.643042
+        3                   Month_3 -0.221460    0.801348
+        10                 Month_11 -0.198123    0.820269
+        21                     Pets -0.179053    0.836062
+        12                  Day_Fri -0.159777    0.852334
+        20                 Children  0.055890    1.057481
+        16                Age_47_58  0.061026    1.062927
+        18          Body Mass Index  0.097543    1.102459
+        4                   Month_4  0.137001    1.146829
+        15                Age_40_46  0.233753    1.263333
+        17  Daily Work Load Average  0.246496    1.279534
+        19                Education  0.250723    1.284954
+        11                  Day_Mon  0.257278    1.293405
+        7                   Month_8  0.490307    1.632817
+        13   Transportation Expense  0.623077    1.864657
+        6                   Month_7  0.933111    2.542406
+        14                Age_34_39  1.080407    2.945879       
+### Conclusions:
+- Especially clear that in July - August there is a lot of absenteeism
+- Consider removing Children since very low weight - strange, but perhaps the age explains better than number of children whether someone will be missing (maybe need a category of number of small children)?

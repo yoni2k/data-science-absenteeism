@@ -190,3 +190,7 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 - Made no difference or slightly worse difference
 ### Conclusions:
 - Leave age as was in the lecture
+
+## Step 7: split day of week to be categorical variable
+- Combine Saturday, Sunday to be like Monday
+- Result: worse results, to be reverted

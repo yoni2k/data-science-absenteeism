@@ -200,3 +200,24 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 - Result: score slightly higher or same: .784, but test score probably lower: .694
 ### Conclusions:
 - Try categorical but without grouping into season
+
+## Step 9: make month categorical
+- And remove lowest frequency - 6
+
+        Frequences of months:
+        3     87
+        2     72
+        10    71
+        11    63
+        5     58
+        7     55
+        8     54
+        9     53
+        4     53
+        1     50
+        12    49
+        6     35
+- Score: .782 (same or better), testing .729 (same or better)
+- Doesn't change much of the other other weights
+### Conclusions:
+- Slightly better, but not enough to take it and be different than what was done in the lecture

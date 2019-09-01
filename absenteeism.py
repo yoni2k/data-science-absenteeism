@@ -82,23 +82,10 @@ def preprocess():
     print(f"Date - min: {min(df['Date'])}, max: {max(df['Date'])}, unique: {df['Date'].unique().shape}, "
           f"null: {df['Date'].isnull().sum()}")
 
-
-    seasons = pd.DatetimeIndex(df['Date']).month.map({1: 'Winter',
-                                                     2: 'Winter',
-                                                     3: 'Spring',
-                                                     4: 'Spring',
-                                                     5: 'Spring',
-                                                     6: 'Summer',
-                                                     7: 'Summer',
-                                                     8: 'Summer',
-                                                     9: 'Autumn',
-                                                     10: 'Autumn',
-                                                     11: 'Autumn',
-                                                     12: 'Winter'})
-    print(f'Frequences of seasons:\n{seasons.value_counts()}')
-    seasons = pd.get_dummies(seasons)
-    seasons = seasons.drop(['Summer'], axis=1)
-    df_preprocessed = pd.concat([df_preprocessed, seasons], axis=1)
+    months = pd.get_dummies(pd.DatetimeIndex(df['Date']).month, prefix="Month")
+    print(f'Frequences of months:\n{pd.DatetimeIndex(df["Date"]).month.value_counts()}')
+    months = months.drop(['Month_6'], axis=1)
+    df_preprocessed = pd.concat([df_preprocessed, months], axis=1)
 
     # df_preprocessed['Month Value'] = pd.DatetimeIndex(df['Date']).month
 
@@ -167,8 +154,10 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     # scale the data, prepare inputs
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
-        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4',
-                                                            'Education', 'Winter', 'Spring', 'Autumn'], axis=1)
+        df_inputs_for_scaling = df_inputs_for_scaling.drop(
+            ['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4', 'Education',
+             'Month_1', 'Month_2', 'Month_3', 'Month_4', 'Month_5', 'Month_7',
+             'Month_8', 'Month_9', 'Month_10', 'Month_11', 'Month_12'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 

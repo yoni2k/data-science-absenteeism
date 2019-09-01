@@ -180,3 +180,8 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
     - Children becomes less important (perhaps because age and number of children have a higher correlation)
 ### Conclusions:
 - Try with smaller and larger number of bins
+
+## Step 5: playing with different age categories (more / less than 5) 
+- Made no different or slightly worse difference
+### Conclusions:
+- Try without age altogether

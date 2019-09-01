@@ -282,6 +282,54 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
         9                 Education  0.216286    1.241457
         10                 Children  0.319037    1.375802
         3    Transportation Expense  0.518577    1.679635
-- Out of 3 groups: young people, middle age and slightly older, middle age miss the most (kids?), young in the middle, and older - least
 ### Conclusions:
+- Out of 3 groups: young people, middle age and slightly older, middle age miss the most (kids?), young in the middle, and older - least
 - Probably better to stay with this conclusion, although it helps only slightly (although the conclusion is sound).  Need to decide if worth it to split from the course for it
+
+## Step 14: Split day of week into categories
+- score of training: 0.666, score of testing: 0.657 (same or better)
+- Intercept and coefficients sorted:
+
+                       Features     Coefs  Odds_ratio
+    0                 Intercept -0.694880    0.499134
+    14                     Pets -0.166691    0.846461
+    5                   Day_Fri -0.125483    0.882071
+    4                   Day_Wed -0.034806    0.965792
+    3                   Day_Tue -0.033948    0.966622
+    13                 Children  0.021066    1.021289
+    11          Body Mass Index  0.057955    1.059667
+    10  Daily Work Load Average  0.122796    1.130653
+    1               Month Value  0.154693    1.167300
+    12                Education  0.206839    1.229784
+    9                 Age_47_58  0.216159    1.241300
+    8                 Age_40_46  0.265714    1.304362
+    2                   Day_Mon  0.285967    1.331049
+    6    Transportation Expense  0.665392    1.945253
+    7                 Age_34_39  1.189535    3.285552
+### Conclusions:
+- There is less of a chance to be absent on Friday, and more on Sunday
+- Drop Tuesday and Wednesday
+
+## Step 14: Split day of week into categories
+- score of training: 0.666, score of testing: 0.657 (same or better)
+- Intercept and coefficients sorted:
+
+                           Features     Coefs  Odds_ratio
+        0                 Intercept -0.694880    0.499134
+        14                     Pets -0.166691    0.846461
+        5                   Day_Fri -0.125483    0.882071
+        4                   Day_Wed -0.034806    0.965792
+        3                   Day_Tue -0.033948    0.966622
+        13                 Children  0.021066    1.021289
+        11          Body Mass Index  0.057955    1.059667
+        10  Daily Work Load Average  0.122796    1.130653
+        1               Month Value  0.154693    1.167300
+        12                Education  0.206839    1.229784
+        9                 Age_47_58  0.216159    1.241300
+        8                 Age_40_46  0.265714    1.304362
+        2                   Day_Mon  0.285967    1.331049
+        6    Transportation Expense  0.665392    1.945253
+        7                 Age_34_39  1.189535    3.285552
+### Conclusions:
+- There is less of a chance to be absent on Friday, and more on Sunday
+- Drop Tuesday and Wednesday

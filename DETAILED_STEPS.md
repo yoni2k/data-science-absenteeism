@@ -194,3 +194,9 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 ## Step 7: split day of week to be categorical variable
 - Combine Saturday, Sunday to be like Monday
 - Result: worse results, to be reverted
+
+## Step 8: group months by season
+- Group months by season and make categorical, remove summer (least frequent absenteeisms)
+- Result: score slightly higher or same: .784, but test score probably lower: .694
+### Conclusions:
+- Try categorical but without grouping into season

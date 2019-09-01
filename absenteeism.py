@@ -83,24 +83,9 @@ def preprocess():
           f"null: {df['Date'].isnull().sum()}")
 
     df_preprocessed['Month Value'] = pd.DatetimeIndex(df['Date']).month
-    print(f'================ After adding month, shape: {df_preprocessed.shape}, Head: ')
-    print(df_preprocessed.head().to_string())
-
-    days_of_week = pd.DatetimeIndex(df['Date']).dayofweek.map({0:0, 1:1, 2:2, 3:3, 4:4, 5:0, 6:0})
-    print(f'Value counts of Day of Week:\n{pd.DatetimeIndex(df["Date"]).dayofweek.value_counts()}')
-    print(f'Value counts of Day of Week after putting Saturday, Sunday as Monday:\n{days_of_week.value_counts()}')
-    days_of_week = pd.get_dummies(days_of_week)
-    days_of_week.columns = ['Day_Mon', 'Day_Tue', 'Day_Wed', 'Day_Thu', 'Day_Fri']
-    days_of_week = days_of_week.drop(['Day_Thu'], axis=1)
-    df_preprocessed = pd.concat([df_preprocessed, days_of_week], axis=1)
-    print(f'================ After adding day of week, shape: {df_preprocessed.shape}, Head:\n'
-          f'{df_preprocessed.head().to_string()}')
-
-    """
     df_preprocessed['Day of the Week'] = pd.DatetimeIndex(df['Date']).dayofweek
     print(f'================ After adding month and day of week fields, shape: {df_preprocessed.shape}, Head: ')
     print(df_preprocessed.head().to_string())
-    """
 
     # Take the following as is:
     #  'Transportation Expense','Distance to Work', 'Age', 'Daily Work Load Average', 'Body Mass Index'
@@ -161,9 +146,7 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     # scale the data, prepare inputs
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
-        df_inputs_for_scaling = df_inputs_for_scaling.drop(
-            ['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4', 'Education',
-             'Day_Mon', 'Day_Tue', 'Day_Wed', 'Day_Fri'], axis=1)
+        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4', 'Education'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 
@@ -225,7 +208,8 @@ def single_model(inputs, targets, features):
 def main():
     preprocess()
     inputs, targets, features = prepare_data(scale_dummies=False,
-                                             features_to_remove=['Distance to Work',
+                                             features_to_remove=['Day of the Week',
+                                                                 'Distance to Work',
                                                                  'Daily Work Load Average'])
     single_model(inputs, targets, features)
 

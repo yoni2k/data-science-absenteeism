@@ -182,6 +182,11 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 - Try with smaller and larger number of bins
 
 ## Step 5: playing with different age categories (more / less than 5) 
-- Made no different or slightly worse difference
+- Made no difference or slightly worse difference
 ### Conclusions:
 - Try without age altogether
+
+## Step 6: no age altogether 
+- Made no difference or slightly worse difference
+### Conclusions:
+- Leave age as was in the lecture

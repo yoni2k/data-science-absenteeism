@@ -87,32 +87,16 @@ def preprocess():
     print(f'================ After adding month and day of week fields, shape: {df_preprocessed.shape}, Head: ')
     print(df_preprocessed.head().to_string())
 
-    # Take the following as is: 'Transportation Expense','Distance to Work'
+    # Take the following as is:
+    #  'Transportation Expense','Distance to Work', 'Age', 'Daily Work Load Average', 'Body Mass Index'
     df_preprocessed['Transportation Expense'] = df['Transportation Expense']
     df_preprocessed['Distance to Work'] = df['Distance to Work']
-    print(f"================ After adding 'Transportation Expense','Distance to Work', "
-          f"shape: {df_preprocessed.shape}, Head:\n{df_preprocessed.head().to_string()}")
-
-
-    print(f"Age frequencies:\n{df['Age'].value_counts()}")
-    print(f'Age histogram: {np.histogram(df["Age"], bins=5)}')
-    print(f"bincount of ages: 30, 35, 38, 41: {np.bincount(np.digitize(df['Age'], np.array([30, 35, 38, 41])))}")
-
-    ages_ranges = pd.qcut(df['Age'], q=5, precision=0, labels=False)
-    print(pd.qcut(df['Age'], q=5, precision=0))
-    print(f"Age frequencies:\n{ages_ranges.value_counts()}")
-    ages_columns = pd.get_dummies(ages_ranges)
-    ages_columns.columns = ['Age_27_30', 'Age_31_36', 'Age_37_38', 'Age_39_40', 'Age_41_48']
-    ages_columns = ages_columns.drop('Age_27_30', axis=1)
-    df_preprocessed = pd.concat([df_preprocessed, ages_columns], axis=1)
-    print(f"================ After adding 'Age' as categorical variables, shape: {df_preprocessed.shape}, Head: ")
-    print(df_preprocessed.head().to_string())
-
-    # Take the following as is: 'Daily Work Load Average','Body Mass Index'
+    df_preprocessed['Age'] = df['Age']
     df_preprocessed['Daily Work Load Average'] = df['Daily Work Load Average']
     df_preprocessed['Body Mass Index'] = df['Body Mass Index']
-    print(f"================ After adding 'Daily Work Load Average','Body Mass Index', "
-          f"shape: {df_preprocessed.shape}, Head:\n{df_preprocessed.head().to_string()}")
+    print(f"================ After adding 'Transportation Expense','Distance to Work', 'Age', 'Daily Work Load Average',"
+          f" 'Body Mass Index', shape: {df_preprocessed.shape}, Head: ")
+    print(df_preprocessed.head().to_string())
 
     # ------------- Education
     # Since there are very few non-1's, combine the rest together
@@ -162,9 +146,7 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     # scale the data, prepare inputs
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
-        df_inputs_for_scaling = df_inputs_for_scaling.drop(
-            ['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4',
-             'Education', 'Age_31_36', 'Age_37_38', 'Age_39_40', 'Age_41_48'], axis=1)
+        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4', 'Education'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 

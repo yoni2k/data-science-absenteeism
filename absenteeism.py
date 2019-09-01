@@ -183,9 +183,7 @@ def single_model(inputs, targets, features):
 def main():
     preprocess()
     inputs, targets, features = prepare_data(scale_dummies=False,
-                                             features_to_remove=['Day of the Week',
-                                                                 'Distance to Work',
-                                                                 'Daily Work Load Average'])
+                                             features_to_remove=[])
     single_model(inputs, targets, features)
 
 

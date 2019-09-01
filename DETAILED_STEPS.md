@@ -239,3 +239,9 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
         2  Transportation Expense  0.520165    1.682306
 ### Conclusions:
 - Try to improve by reading what was previously deleted, and adding categorization as I did for some features
+
+## Step 11: Re-add all features
+- Re-add all features to double check that ones removed were not because they didn't help when reasons were in
+- score of training: 0.659, score of testing: 0.607 - both slightly better
+### Conclusions:
+- **Distance to Work** clearly doesn't help, remove, leave the rest for now (will remove later after finished adding everything properly)

@@ -424,3 +424,26 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 ### Conclusions:
 - Seems that removing children doesn't do harm.  However, I think there are too many months that add a lot of noise.  It seems that 7-8 months are the unusual ones.
 - Return children for now, and just put if it's July-August
+
+## Step 19: For months, leave only July August
+- July-August indeed has a very high predictor
+- score of training: 0.675, score of testing: 0.679 - similar
+- Intercept and coefficients sorted:
+
+                           Features     Coefs  Odds_ratio
+        0                 Intercept -0.808164    0.445676
+        12                     Pets -0.167743    0.845571
+        3                   Day_Fri -0.092570    0.911585
+        7                 Age_47_58  0.069671    1.072155
+        11                 Children  0.074388    1.077225
+        9           Body Mass Index  0.089456    1.093579
+        10                Education  0.205064    1.227604
+        8   Daily Work Load Average  0.220771    1.247038
+        6                 Age_40_46  0.233066    1.262465
+        2                   Day_Mon  0.258053    1.294407
+        4    Transportation Expense  0.627864    1.873604
+        5                 Age_34_39  1.065440    2.902116
+        1                  July_Aug  1.070878    2.917940
+### Conclusions:
+- Seems that leaving only July, August has much more explanatory power
+- Remove or Age 47-58, or children, and see what's better - both low, but can affect each other

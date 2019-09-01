@@ -59,8 +59,8 @@ def preprocess():
 
     months = pd.get_dummies(pd.DatetimeIndex(df['Date']).month, prefix="Month")
     print(f'Frequences of months:\n{pd.DatetimeIndex(df["Date"]).month.value_counts()}')
-    months = months.drop(['Month_6', 'Month_12'], axis=1)
-    df_preprocessed = months
+    months['July_Aug'] = months['Month_7'] + months['Month_8']
+    df_preprocessed = months['July_Aug']
 
     print(f'================ After adding month, shape: {df_preprocessed.shape}, Head: ')
     print(df_preprocessed.head().to_string())
@@ -120,10 +120,11 @@ def preprocess():
     print(f'================ After turning education into dummies, shape: {df_preprocessed.shape}, Head: ')
     print(df_preprocessed.head().to_string())
 
-    # Adding as is 'Pets', 'Absenteeism Time in Hours'
+    # Adding as is 'Children', 'Pets', 'Absenteeism Time in Hours'
+    df_preprocessed['Children'] = df['Children']
     df_preprocessed['Pets'] = df['Pets']
     df_preprocessed['Absenteeism Time in Hours'] = df['Absenteeism Time in Hours']
-    print(f"================ After adding 'Pets', 'Absenteeism Time in Hours' - final version, "
+    print(f"================ After adding 'Children', 'Pets', 'Absenteeism Time in Hours' - final version, "
           f"shape: {df_preprocessed.shape}, Head: ")
     print(df_preprocessed.head().to_string())
 
@@ -158,8 +159,7 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     if not scale_dummies:
         df_inputs_for_scaling = df_inputs_for_scaling.drop(
             ['Education', 'Age_34_39', 'Age_40_46', 'Age_47_58', 'Day_Mon', 'Day_Fri',
-             'Month_1', 'Month_2', 'Month_3', 'Month_4', 'Month_5', 'Month_7',
-             'Month_8', 'Month_9', 'Month_10', 'Month_11'], axis=1)
+             'July_Aug'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 

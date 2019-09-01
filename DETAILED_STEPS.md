@@ -245,3 +245,21 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 - score of training: 0.659, score of testing: 0.607 - both slightly better
 ### Conclusions:
 - **Distance to Work** clearly doesn't help, remove, leave the rest for now (will remove later after finished adding everything properly)
+
+## Step 12: Remove Distance to Work again
+- Since was with a very close to 1 weight: .967
+- score of training: 0.664, score of testing: 0.607 - slightly better
+- Intercept and coefficients sorted:
+                          Features     Coefs  Odds_ratio
+        0                Intercept -0.233036    0.792125
+        9                     Pets -0.229966    0.794561
+        2          Day of the Week -0.196784    0.821368
+        4                      Age -0.069003    0.933324
+        5  Daily Work Load Average  0.142422    1.153063
+        6          Body Mass Index  0.155175    1.167862
+        1              Month Value  0.170197    1.185538
+        7                Education  0.190926    1.210370
+        8                 Children  0.311329    1.365238
+        3   Transportation Expense  0.534922    1.707315
+### Conclusions:
+- Read age, education, day of week, and month as did previously, but this time without reasons

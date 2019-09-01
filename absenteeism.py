@@ -183,7 +183,7 @@ def single_model(inputs, targets, features):
 def main():
     preprocess()
     inputs, targets, features = prepare_data(scale_dummies=False,
-                                             features_to_remove=[])
+                                             features_to_remove=['Distance to Work'])
     single_model(inputs, targets, features)
 
 

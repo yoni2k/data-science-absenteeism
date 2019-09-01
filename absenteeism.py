@@ -8,7 +8,7 @@ from sklearn import metrics
 """
 Goal: predict employee absence from work based on numerous factors.  
 See input file "inputs/Absenteeism-data.csv" for different inputs and factors.
-Also, see PREPROCESSING.md for analysis of inputs and decisions for preprocessing
+Also, see DETAILED_STEPS.md for analysis of inputs and decisions for preprocessing
 
 TODO:
 - requirements.txt
@@ -26,6 +26,7 @@ TODO:
 TEST_FRACTION = 0.2
 ORIG_INPUT_FILE = "files/Absenteeism-data.csv"
 PREPROCESSED_FILE = "files/Absenteeism_preprocessed_mine.csv"
+
 
 def preprocess():
     pd.options.display.max_columns = None
@@ -49,7 +50,8 @@ def preprocess():
     # ------------- Reason for Absence
     # Changing reason into a cetegorical value and categorize together.
     #   It's OK to drop first since it has 38/700 > 5% observations
-    print('Reasons for Absence - adding dummy variables - number of values of each category before dropping first value:')
+    print('Reasons for Absence - adding dummy variables - '
+          'number of values of each category before dropping first value:')
     print(df['Reason for Absence'].value_counts())
     # TODO - understand why we are dropping first, and then categorizing,
     #  should have perhaps first categories, then dropped?
@@ -77,23 +79,40 @@ def preprocess():
     df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
     print(f'================ After performing date conversion, shape: {df.shape}, Head: ')
     print(df.head().to_string())
-    print(f"Date - min: {min(df['Date'])}, max: {max(df['Date'])}, unique: {df['Date'].unique().shape}, null: {df['Date'].isnull().sum()}")
+    print(f"Date - min: {min(df['Date'])}, max: {max(df['Date'])}, unique: {df['Date'].unique().shape}, "
+          f"null: {df['Date'].isnull().sum()}")
 
     df_preprocessed['Month Value'] = pd.DatetimeIndex(df['Date']).month
     df_preprocessed['Day of the Week'] = pd.DatetimeIndex(df['Date']).dayofweek
     print(f'================ After adding month and day of week fields, shape: {df_preprocessed.shape}, Head: ')
     print(df_preprocessed.head().to_string())
 
-    # Take the following as is:
-    #  'Transportation Expense','Distance to Work', 'Age', 'Daily Work Load Average', 'Body Mass Index'
+    # Take the following as is: 'Transportation Expense','Distance to Work'
     df_preprocessed['Transportation Expense'] = df['Transportation Expense']
     df_preprocessed['Distance to Work'] = df['Distance to Work']
-    df_preprocessed['Age'] = df['Age']
+    print(f"================ After adding 'Transportation Expense','Distance to Work', "
+          f"shape: {df_preprocessed.shape}, Head:\n{df_preprocessed.head().to_string()}")
+
+
+    print(f"Age frequencies:\n{df['Age'].value_counts()}")
+    print(f'Age histogram: {np.histogram(df["Age"], bins=5)}')
+    print(f"bincount of ages: 30, 35, 38, 41: {np.bincount(np.digitize(df['Age'], np.array([30, 35, 38, 41])))}")
+
+    ages_ranges = pd.qcut(df['Age'], q=5, precision=0, labels=False)
+    print(pd.qcut(df['Age'], q=5, precision=0))
+    print(f"Age frequencies:\n{ages_ranges.value_counts()}")
+    ages_columns = pd.get_dummies(ages_ranges)
+    ages_columns.columns = ['Age_27_30', 'Age_31_36', 'Age_37_38', 'Age_39_40', 'Age_41_48']
+    ages_columns = ages_columns.drop('Age_27_30', axis=1)
+    df_preprocessed = pd.concat([df_preprocessed, ages_columns], axis=1)
+    print(f"================ After adding 'Age' as categorical variables, shape: {df_preprocessed.shape}, Head: ")
+    print(df_preprocessed.head().to_string())
+
+    # Take the following as is: 'Daily Work Load Average','Body Mass Index'
     df_preprocessed['Daily Work Load Average'] = df['Daily Work Load Average']
     df_preprocessed['Body Mass Index'] = df['Body Mass Index']
-    print(f"================ After adding 'Transportation Expense','Distance to Work', 'Age', 'Daily Work Load Average',"
-          f" 'Body Mass Index', shape: {df_preprocessed.shape}, Head: ")
-    print(df_preprocessed.head().to_string())
+    print(f"================ After adding 'Daily Work Load Average','Body Mass Index', "
+          f"shape: {df_preprocessed.shape}, Head:\n{df_preprocessed.head().to_string()}")
 
     # ------------- Education
     # Since there are very few non-1's, combine the rest together
@@ -121,6 +140,7 @@ def preprocess():
     # Write out to a csv file for future use
     df_preprocessed.to_csv(PREPROCESSED_FILE, index=False)
 
+
 def prepare_data(scale_dummies=False, features_to_remove=None):
     pd.options.display.max_columns = None
     pd.options.display.max_rows = None
@@ -142,7 +162,9 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     # scale the data, prepare inputs
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
-        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4', 'Education'], axis=1)
+        df_inputs_for_scaling = df_inputs_for_scaling.drop(
+            ['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4',
+             'Education', 'Age_31_36', 'Age_37_38', 'Age_39_40', 'Age_41_48'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 
@@ -201,8 +223,13 @@ def single_model(inputs, targets, features):
     print(f'score of testing: {round(test_score, 3)}')
 
 
-preprocess()
-inputs, targets, features = prepare_data(scale_dummies=False,
-                                         features_to_remove=
-                                         ['Day of the Week', 'Distance to Work', 'Daily Work Load Average'])
-single_model(inputs, targets, features)
+def main():
+    preprocess()
+    inputs, targets, features = prepare_data(scale_dummies=False,
+                                             features_to_remove=['Day of the Week',
+                                                                 'Distance to Work',
+                                                                 'Daily Work Load Average'])
+    single_model(inputs, targets, features)
+
+
+main()

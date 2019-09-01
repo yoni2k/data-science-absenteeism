@@ -152,3 +152,31 @@ Especially to understand how Reasons effect the model exactly
     and there aren't enough 4s, combine 3 and 4, and map everything to 0, 1, 2 instead of 1, 2, 3
 - Conclusion: Doesn't seem to make a difference both on accuracies and weights (besides the Education weight, but that's because now Education is standardized)
     Committing, but will be reverted to stay with what was done in the course
+    
+## Step 4: make age categorical, split into bins
+Try to split age into groups of more or less equal size. Splitting into 5 groups yielded a worse result:
+- Training Score: 0.771, testing score .729
+- Intercept and coefficients sorted:
+
+                          Features     Coefs  Odds_ratio
+        0                Intercept -1.669344    0.188371
+        9                Age_39_40 -0.228201    0.795965
+        14                    Pets -0.225331    0.798252
+        12               Education -0.181986    0.833613
+        10               Age_41_48  0.012772    1.012854
+        11         Body Mass Index  0.158052    1.171227
+        5              Month Value  0.176372    1.192881
+        13                Children  0.201926    1.223757
+        8                Age_37_38  0.322398    1.380434
+        7                Age_31_36  0.596360    1.815498
+        6   Transportation Expense  0.649365    1.914324
+        4                 Reason_4  0.675607    1.965226
+        2                 Reason_2  0.880699    2.412585
+        1                 Reason_1  2.632106   13.903019
+        3                 Reason_3  2.900696   18.186802
+- Mainly no difference, where there are slight differences:
+    - Education becomes less important (perhaps because age and education have a correlation)
+    - BMI becomes less important (perhaps because age and BMI have high correlation)
+    - Children becomes less important (perhaps because age and number of children have a higher correlation)
+### Conclusions:
+- Try with smaller and larger number of bins

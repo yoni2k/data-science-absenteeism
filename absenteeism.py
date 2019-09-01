@@ -47,31 +47,6 @@ def preprocess():
     # ------------- ID
     # Not taking ID column. Reason: we would like to predict not based on who the person is, but his characteristics
 
-    # ------------- Reason for Absence
-    # Changing reason into a cetegorical value and categorize together.
-    #   It's OK to drop first since it has 38/700 > 5% observations
-    print('Reasons for Absence - adding dummy variables - '
-          'number of values of each category before dropping first value:')
-    print(df['Reason for Absence'].value_counts())
-    # TODO - understand why we are dropping first, and then categorizing,
-    #  should have perhaps first categories, then dropped?
-    reason_columns = pd.get_dummies(df['Reason for Absence'], drop_first=True)
-    print('============ Head of reasons dummy variables')
-    print(reason_columns.head().to_string())
-
-    # Split reasons into 4 categories (pre-provided in the course based on analysis):
-    #   1-14, 15-17, 18-21, 22-end
-    reason_type_1 = reason_columns.loc[:, 1:14].sum(axis=1)
-    reason_type_2 = reason_columns.loc[:, 15:17].sum(axis=1)
-    reason_type_3 = reason_columns.loc[:, 18:21].sum(axis=1)
-    reason_type_4 = reason_columns.loc[:, 22:].sum(axis=1)
-    print(f'Sum of all reasons: {sum(reason_type_1) + sum(reason_type_2) + sum(reason_type_3) + sum(reason_type_4)}')
-
-    df_preprocessed = pd.concat([reason_type_1, reason_type_2, reason_type_3, reason_type_4], axis=1)
-    df_preprocessed.columns = ['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4']
-    print('============ Head of df_preprocessed after adding reasons')
-    print(df_preprocessed.head().to_string())
-
     # ------------- Date
     # Remove only month and day of week values, since we presume that's what might affect the absenteeism
     # Change to datetime64 format
@@ -82,7 +57,7 @@ def preprocess():
     print(f"Date - min: {min(df['Date'])}, max: {max(df['Date'])}, unique: {df['Date'].unique().shape}, "
           f"null: {df['Date'].isnull().sum()}")
 
-    df_preprocessed['Month Value'] = pd.DatetimeIndex(df['Date']).month
+    df_preprocessed = pd.DataFrame({'Month Value': pd.DatetimeIndex(df['Date']).month})
     df_preprocessed['Day of the Week'] = pd.DatetimeIndex(df['Date']).dayofweek
     print(f'================ After adding month and day of week fields, shape: {df_preprocessed.shape}, Head: ')
     print(df_preprocessed.head().to_string())
@@ -146,7 +121,7 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     # scale the data, prepare inputs
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
-        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Reason_1', 'Reason_2', 'Reason_3', 'Reason_4', 'Education'], axis=1)
+        df_inputs_for_scaling = df_inputs_for_scaling.drop(['Education'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 

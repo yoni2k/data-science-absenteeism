@@ -221,3 +221,21 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 - Doesn't change much of the other other weights
 ### Conclusions:
 - Slightly better, but not enough to take it and be different than what was done in the lecture
+
+## Step 10: Remove reasons
+- Reasons don't make sense to be in the model (unless we split absences into days), since we only know them after the fact.
+- Try to remove reasons.  Expectation: model would have less explanatory power, but other features' influence would be much clearer
+- Results: Score of training 0.646, and of testing .6 - less as we expected
+- Intercept and coefficients:
+
+                         Features     Coefs  Odds_ratio
+        0               Intercept -0.220548    0.802079
+        7                    Pets -0.211354    0.809488
+        3                     Age -0.072412    0.930148
+        1             Month Value  0.126572    1.134931
+        5               Education  0.130027    1.138859
+        4         Body Mass Index  0.150391    1.162289
+        6                Children  0.282478    1.326412
+        2  Transportation Expense  0.520165    1.682306
+### Conclusions:
+- Try to improve by reading what was previously deleted, and adding categorization as I did for some features

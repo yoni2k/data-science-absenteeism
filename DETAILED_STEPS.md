@@ -263,3 +263,25 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
         3   Transportation Expense  0.534922    1.707315
 ### Conclusions:
 - Read age, education, day of week, and month as did previously, but this time without reasons
+
+## Step 13: Redo education, then age categories
+- Splitting Education into more groups (3 instead of 2) makes the results worse
+- Splitting ages into age groups makes it slightly slightly better: score of training: 0.668, score of testing: 0.636
+- Intercept and coefficients sorted:
+
+                           Features     Coefs  Odds_ratio
+        6                 Age_47_58 -0.487560    0.614123
+        0                 Intercept -0.260360    0.770774
+        2           Day of the Week -0.195134    0.822725
+        11                     Pets -0.170691    0.843082
+        5                 Age_40_46  0.116341    1.123379
+        7   Daily Work Load Average  0.137455    1.147350
+        4                 Age_34_39  0.143244    1.154011
+        1               Month Value  0.164338    1.178612
+        8           Body Mass Index  0.167356    1.182175
+        9                 Education  0.216286    1.241457
+        10                 Children  0.319037    1.375802
+        3    Transportation Expense  0.518577    1.679635
+- Out of 3 groups: young people, middle age and slightly older, middle age miss the most (kids?), young in the middle, and older - least
+### Conclusions:
+- Probably better to stay with this conclusion, although it helps only slightly (although the conclusion is sound).  Need to decide if worth it to split from the course for it

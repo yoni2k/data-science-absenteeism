@@ -447,3 +447,9 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 ### Conclusions:
 - Seems that leaving only July, August has much more explanatory power
 - Remove or Age 47-58, or children, and see what's better - both low, but can affect each other
+
+## Step 19: Age - find most interesting age group
+- Age groups don't give consistent results, not in high absenteeism, not in low
+- See details in files/ages.xlsx
+### Conclusions:
+- - Committing code to search for different groups, to be reverted

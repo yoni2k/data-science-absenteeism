@@ -28,7 +28,7 @@ ORIG_INPUT_FILE = "files/Absenteeism-data.csv"
 PREPROCESSED_FILE = "files/Absenteeism_preprocessed_mine.csv"
 
 
-def preprocess():
+def preprocess(age_range=None):
     pd.options.display.max_columns = None
     pd.options.display.max_rows = None
 
@@ -75,11 +75,6 @@ def preprocess():
     print(f'================ After adding day of week, shape: {df_preprocessed.shape}, Head:\n'
           f'{df_preprocessed.head().to_string()}')
 
-    """
-    df_preprocessed['Day of the Week'] = pd.DatetimeIndex(df['Date']).dayofweek
-    print(f'================ After adding month and day of week fields, shape: {df_preprocessed.shape}, Head: ')
-    print(df_preprocessed.head().to_string())
-    """
 
     # Take the following as is: 'Transportation Expense','Distance to Work'
     df_preprocessed['Transportation Expense'] = df['Transportation Expense']
@@ -92,13 +87,16 @@ def preprocess():
     print(f'Age histogram: {np.histogram(df["Age"], bins=5)}')
     print(f"bincount of ages: 30, 35, 38, 41: {np.bincount(np.digitize(df['Age'], np.array([30, 35, 38, 41])))}")
 
-    ages_ranges = pd.cut(df['Age'], bins=6, precision=0, labels=False)
-    print(pd.cut(df['Age'], bins=6, precision=0))
-    ages_ranges = ages_ranges.map({0: 0, 1: 1, 2: 2, 3: 3, 4: 3})
-    print(f"Age frequencies:\n{ages_ranges.value_counts()}")
-    ages_columns = pd.get_dummies(ages_ranges)
-    ages_columns.columns = ['Age_28_33', 'Age_34_39', 'Age_40_46', 'Age_47_58']
-    ages_columns = ages_columns.drop('Age_28_33', axis=1)
+    if not age_range:
+        ages_ranges = pd.cut(df['Age'], bins=6, precision=0, labels=False)
+        ages_ranges = ages_ranges.map({0: 0, 1: 1, 2: 2, 3: 3, 4: 3})
+        print(f"Age frequencies:\n{ages_ranges.value_counts()}")
+        ages_columns = pd.get_dummies(ages_ranges)
+        ages_columns.columns = ['Age_28_33', 'Age_34_39', 'Age_40_46', 'Age_47_58']
+        ages_columns = ages_columns.drop('Age_28_33', axis=1)
+    else:
+        ages_columns = pd.DataFrame({'Mid-age': df['Age'].apply(lambda x: 1 if (age_range[0] <= x <= age_range[1]) else 0) })
+
     df_preprocessed = pd.concat([df_preprocessed, ages_columns], axis=1)
     print(f"================ After adding 'Age' as categorical variables, shape: {df_preprocessed.shape}, Head: ")
     print(df_preprocessed.head().to_string())
@@ -136,7 +134,7 @@ def preprocess():
     df_preprocessed.to_csv(PREPROCESSED_FILE, index=False)
 
 
-def prepare_data(scale_dummies=False, features_to_remove=None):
+def prepare_data(scale_dummies=False, features_to_remove=None, age_range=None):
     pd.options.display.max_columns = None
     pd.options.display.max_rows = None
     np.set_printoptions(formatter={'float': lambda x: "{0:0.2f}".format(x)}, linewidth=120)
@@ -158,8 +156,13 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
         df_inputs_for_scaling = df_inputs_for_scaling.drop(
-            ['Education', 'Age_34_39', 'Age_40_46', 'Age_47_58', 'Day_Mon', 'Day_Fri',
-             'July_Aug'], axis=1)
+            ['Education', 'Day_Mon', 'Day_Fri', 'July_Aug'], axis=1)
+        if not age_range:
+            df_inputs_for_scaling = df_inputs_for_scaling.drop(
+                ['Age_34_39', 'Age_40_46', 'Age_47_58'], axis=1)
+        else:
+            df_inputs_for_scaling = df_inputs_for_scaling.drop(
+                ['Mid-age'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 
@@ -217,12 +220,29 @@ def single_model(inputs, targets, features):
     test_score = reg.score(x_test, y_test)
     print(f'score of testing: {round(test_score, 3)}')
 
+    return score, test_score
 
-def main():
-    preprocess()
+
+def single_full(age_range=None):
+    preprocess(age_range)
     inputs, targets, features = prepare_data(scale_dummies=False,
-                                             features_to_remove=['Distance to Work'])
-    single_model(inputs, targets, features)
+                                             features_to_remove=['Distance to Work'],
+                                             age_range=age_range)
+    score, test_score = single_model(inputs, targets, features)
+    return score, test_score
 
+def find_peak_age_group():
 
-main()
+    results = []
+
+    for from_age in range(28, 58):
+        for till_age in range(from_age, 58):
+            train_score, test_score = single_full(age_range=(from_age, till_age))
+            results.append({'from_age': from_age, 'till_age': till_age,
+                            'train_score': train_score, 'test_score': test_score})
+
+    df = pd.DataFrame(results)
+    df.to_excel('files/ages.xlsx')
+
+#single_full()
+find_peak_age_group()

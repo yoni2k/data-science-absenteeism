@@ -543,3 +543,21 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
         4                Age_34_39  1.077213    2.936484
 ### Conclusions:
 - Try to re-add children, see if it helps
+
+## Step 25: Readding children
+- score of training: 0.67, score of testing: 0.693 - slightly worse
+- Children don't help
+- Intercept and coefficients sorted:
+
+                          Features     Coefs  Odds_ratio
+        0                Intercept -0.771112    0.462499
+        8                     Pets -0.175529    0.839013
+        7                 Children  0.051258    1.052595
+        5                Age_40_46  0.198394    1.219443
+        6  Daily Work Load Average  0.210018    1.233701
+        2                  Day_Mon  0.293855    1.341590
+        3   Transportation Expense  0.620203    1.859305
+        4                Age_34_39  1.032032    2.806763
+        1                 July_Aug  1.072150    2.921654
+### Conclusions:
+- Revert adding children

@@ -527,3 +527,19 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
         4                Age_34_39  1.073777    2.926411
 ### Conclusions:
 - Not because of numbers, but a feeling - remove BMI - doesn't seem to help a lot
+
+## Step 24: Remove BMI
+- score of training: 0.679, score of testing: 0.7 - better - BMI doesn't help
+- Intercept and coefficients sorted:
+
+                          Features     Coefs  Odds_ratio
+        0                Intercept -0.778874    0.458923
+        7                     Pets -0.178859    0.836224
+        5                Age_40_46  0.185228    1.203493
+        6  Daily Work Load Average  0.210036    1.233723
+        2                  Day_Mon  0.292414    1.339657
+        3   Transportation Expense  0.643484    1.903100
+        1                 July_Aug  1.065122    2.901194
+        4                Age_34_39  1.077213    2.936484
+### Conclusions:
+- Try to re-add children, see if it helps

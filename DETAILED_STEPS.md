@@ -493,3 +493,20 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
         5                 Age_34_39  1.102984    3.013145   
 ### Conclusions:
 - Stay without children for now - slightly better, remove Friday
+
+## Step 22: Remove Friday
+- score of training: 0.682, score of testing: 0.686 - same, slightly worse, but more explanatory power
+- Intercept and coefficients sorted:
+
+        0                Intercept -0.807425    0.446005
+        9                     Pets -0.174527    0.839854
+        7          Body Mass Index  0.097473    1.102381
+        8                Education  0.170974    1.186459
+        5                Age_40_46  0.180661    1.198008
+        6  Daily Work Load Average  0.222087    1.248680
+        2                  Day_Mon  0.277416    1.319716
+        3   Transportation Expense  0.657582    1.930119
+        1                 July_Aug  1.065216    2.901465
+        4                Age_34_39  1.097422    2.996430
+### Conclusions:
+- Not because of numbers, but a feeling - remove Education, since has high correlation to age, and gut feeling doesn't have to do with missing work

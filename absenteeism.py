@@ -70,7 +70,7 @@ def preprocess():
     print(f'Value counts of Day of Week after putting Saturday, Sunday as Monday:\n{days_of_week.value_counts()}')
     days_of_week = pd.get_dummies(days_of_week)
     days_of_week.columns = ['Day_Mon', 'Day_Tue', 'Day_Wed', 'Day_Thu', 'Day_Fri']
-    days_of_week = days_of_week.drop(['Day_Tue', 'Day_Wed', 'Day_Thu'], axis=1)
+    days_of_week = days_of_week.drop(['Day_Tue', 'Day_Wed', 'Day_Thu', 'Day_Fri'], axis=1)
     df_preprocessed = pd.concat([df_preprocessed, days_of_week], axis=1)
     print(f'================ After adding day of week, shape: {df_preprocessed.shape}, Head:\n'
           f'{df_preprocessed.head().to_string()}')
@@ -158,7 +158,7 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
         df_inputs_for_scaling = df_inputs_for_scaling.drop(
-            ['Education', 'Age_34_39', 'Age_40_46', 'Day_Mon', 'Day_Fri',
+            ['Education', 'Age_34_39', 'Age_40_46', 'Day_Mon',
              'July_Aug'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values

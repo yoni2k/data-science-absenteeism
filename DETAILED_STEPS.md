@@ -448,8 +448,30 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 - Seems that leaving only July, August has much more explanatory power
 - Remove or Age 47-58, or children, and see what's better - both low, but can affect each other
 
-## Step 19: Age - find most interesting age group
+## Step 20: Age - find most interesting age group
 - Age groups don't give consistent results, not in high absenteeism, not in low
 - See details in files/ages.xlsx
 ### Conclusions:
-- - Committing code to search for different groups, to be reverted
+- Committing code to search for different groups, to be reverted
+
+## Step 21: Age - remove age 47-58
+- Same or slightly better result, leave like this: score of training: 0.677, score of testing: 0.679
+- Intercept and coefficients sorted:
+
+                           Features     Coefs  Odds_ratio
+        0                 Intercept -0.784529    0.456335
+        11                     Pets -0.169205    0.844336
+        3                   Day_Fri -0.092458    0.911688
+        10                 Children  0.082304    1.085785
+        8           Body Mass Index  0.103971    1.109568
+        9                 Education  0.205684    1.228364
+        6                 Age_40_46  0.209339    1.232863
+        7   Daily Work Load Average  0.222244    1.248876
+        2                   Day_Mon  0.258389    1.294843
+        4    Transportation Expense  0.623646    1.865718
+        5                 Age_34_39  1.036091    2.818180
+        1                  July_Aug  1.075593    2.931730
+   
+### Conclusions:
+- Try without children 
+

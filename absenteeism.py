@@ -158,8 +158,7 @@ def prepare_data(scale_dummies=False, features_to_remove=None):
     df_inputs_for_scaling = df.drop(['Excessive Absenteeism'], axis=1)
     if not scale_dummies:
         df_inputs_for_scaling = df_inputs_for_scaling.drop(
-            ['Education', 'Age_34_39', 'Age_40_46', 'Day_Mon',
-             'July_Aug'], axis=1)
+            ['Age_34_39', 'Age_40_46', 'Day_Mon', 'July_Aug'], axis=1)
 
     columns_to_scale = df_inputs_for_scaling.columns.values
 
@@ -221,7 +220,7 @@ def single_model(inputs, targets, features):
 def main():
     preprocess()
     inputs, targets, features = prepare_data(scale_dummies=False,
-                                             features_to_remove=['Distance to Work', 'Children'])
+                                             features_to_remove=['Distance to Work', 'Children', 'Education'])
     single_model(inputs, targets, features)
 
 

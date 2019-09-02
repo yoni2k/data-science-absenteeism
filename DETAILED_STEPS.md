@@ -510,3 +510,20 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
         4                Age_34_39  1.097422    2.996430
 ### Conclusions:
 - Not because of numbers, but a feeling - remove Education, since has high correlation to age, and gut feeling doesn't have to do with missing work
+
+## Step 23: Remove Education
+- score of training: 0.682, score of testing: 0.686 - same - Education doesn't help
+- Intercept and coefficients sorted:
+
+                          Features     Coefs  Odds_ratio
+        0                Intercept -0.767569    0.464140
+        8                     Pets -0.183386    0.832447
+        7          Body Mass Index  0.073662    1.076443
+        5                Age_40_46  0.163434    1.177547
+        6  Daily Work Load Average  0.216384    1.241579
+        2                  Day_Mon  0.281451    1.325051
+        3   Transportation Expense  0.654651    1.924470
+        1                 July_Aug  1.059767    2.885699
+        4                Age_34_39  1.073777    2.926411
+### Conclusions:
+- Not because of numbers, but a feeling - remove BMI - doesn't seem to help a lot

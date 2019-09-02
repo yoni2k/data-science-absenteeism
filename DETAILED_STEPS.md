@@ -475,3 +475,21 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
 ### Conclusions:
 - Try without children 
 
+## Step 22: Remove children
+- score of training: 0.682, score of testing: 0.693 - slightly better
+- Intercept and coefficients sorted:
+
+                           Features     Coefs  Odds_ratio
+        0                 Intercept -0.793816    0.452116
+        10                     Pets -0.175972    0.838641
+        3                   Day_Fri -0.068323    0.933958
+        8           Body Mass Index  0.094045    1.098609
+        9                 Education  0.171469    1.187047
+        6                 Age_40_46  0.184562    1.202691
+        7   Daily Work Load Average  0.220908    1.247209
+        2                   Day_Mon  0.262682    1.300412
+        4    Transportation Expense  0.659214    1.933271
+        1                  July_Aug  1.064144    2.898356
+        5                 Age_34_39  1.102984    3.013145   
+### Conclusions:
+- Stay without children for now - slightly better, remove Friday

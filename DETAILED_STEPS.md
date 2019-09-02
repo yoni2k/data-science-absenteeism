@@ -561,3 +561,25 @@ Try to split age into groups of more or less equal size. Splitting into 5 groups
         1                 July_Aug  1.072150    2.921654
 ### Conclusions:
 - Revert adding children
+
+## Step 26: Remove children again
+- score of training: 0.679, score of testing: 0.7 - best so far
+- Intercept and coefficients sorted:
+
+                          Features     Coefs  Odds_ratio
+        0                Intercept -0.778874    0.458923
+        7                     Pets -0.178859    0.836224
+        5                Age_40_46  0.185228    1.203493
+        6  Daily Work Load Average  0.210036    1.233723
+        2                  Day_Mon  0.292414    1.339657
+        3   Transportation Expense  0.643484    1.903100
+        1                 July_Aug  1.065122    2.901194
+        4                Age_34_39  1.077213    2.936484
+### Conclusions:
+- Bottom line biggest predictors of absenteesm is:
+    - Certain age group (we could probably search for even better groups, although initial search didn't yield any conclusive results)
+    - July - August is a big predictor
+    - Monday is a big predictor
+    - More of transportation expenses - more chance to miss
+    - Working more has some explanation for missing work
+    - Finally if there are pets at home, there is less chance to miss work (interesting!)
